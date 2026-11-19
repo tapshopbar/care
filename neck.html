@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>목·팔 통증 체크</title>
+<meta property="og:title" content="목·팔 통증 체크">
+<meta property="og:description" content="그림에 아픈 곳을 칠하고 몇 가지만 누르면 돼요. 약 5분.">
+<meta name="theme-color" content="#F4F5F7">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--blue:#156DFF;--ink:#0E0E0E;--sub:#6B7280;--line:#E5E7EB;--bg:#F4F5F7;--red:#F43131;--yel:#FFC100}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;-webkit-font-smoothing:antialiased}
+.app{max-width:520px;margin:0 auto;min-height:100dvh;padding:14px 16px calc(150px + env(safe-area-inset-bottom))}
+.top{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 12px}
+.brand{display:flex;align-items:center;gap:8px}
+.dots{display:flex;gap:5px}.dots i{width:8px;height:8px;border-radius:50%;display:block}
+.label{letter-spacing:.24em;font-size:10.5px;color:var(--sub);font-weight:700}
+.count{font-size:12px;color:var(--sub);font-weight:600}
+.card{background:#fff;border-radius:22px;padding:22px 18px;box-shadow:0 1px 2px rgba(0,0,0,.04);animation:in .28s ease}
+.card.back{animation:inb .28s ease}
+@keyframes in{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+@keyframes inb{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+.sec{font-size:12px;font-weight:700;color:var(--blue);margin-bottom:6px}
+h1{font-size:25px;line-height:1.3;margin:0 0 10px;letter-spacing:-.02em;font-weight:800}
+h2{font-size:21px;line-height:1.38;margin:0 0 8px;letter-spacing:-.02em;font-weight:800}
+.hint{color:var(--sub);font-size:14.5px;line-height:1.6;margin:0 0 16px}
+.hint b{color:var(--ink)}
+.pic{background:#F7F8FA;border-radius:18px;margin:4px 0 16px;display:flex;justify-content:center;padding:6px}
+.pic svg{width:100%;max-width:300px;height:auto;display:block}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opts.row{flex-direction:row;flex-wrap:wrap;gap:7px}
+.opt{border:1.5px solid var(--line);background:#fff;border-radius:15px;padding:15px 16px;font-size:16px;font-weight:600;text-align:left;font-family:inherit;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:10px;line-height:1.35}
+.opt .ck{width:22px;height:22px;border-radius:50%;border:2px solid #D1D5DB;flex:none;display:flex;align-items:center;justify-content:center}
+.opt.multi .ck{border-radius:7px}
+.opt.on{border-color:var(--blue);background:#EEF4FF}
+.opt.on .ck{background:var(--blue);border-color:var(--blue)}
+.opt.on .ck:after{content:"";width:9px;height:5px;border:2.5px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.opt small{display:block;color:var(--sub);font-weight:500;font-size:13px;margin-top:2px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-size:14px;font-weight:600;font-family:inherit;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px;line-height:1.2}
+.chip.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.sw{width:12px;height:12px;border-radius:50%;display:inline-block;flex:none}
+.nums{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.num{border:1.5px solid var(--line);background:#fff;border-radius:14px;height:54px;font-size:19px;font-weight:700;font-family:inherit;color:var(--ink);cursor:pointer}
+.num.on{color:#fff;border-color:transparent}
+.scale-ends{display:flex;justify-content:space-between;font-size:12.5px;color:var(--sub);margin:10px 2px 0}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:14px;font-weight:700;margin-bottom:7px}
+.field label small{color:var(--sub);font-weight:500}
+input[type=text],input[type=tel],input[type=email],input[type=number],textarea{width:100%;font-family:inherit;font-size:16px;border:1.5px solid var(--line);border-radius:14px;padding:14px 14px;background:#fff;color:var(--ink);outline:none}
+input:focus,textarea:focus{border-color:var(--blue)}
+textarea{min-height:120px;resize:vertical;line-height:1.55}
+.qrow{padding:12px 0;border-top:1px solid #F1F2F4}
+.qrow:first-child{border-top:0;padding-top:0}
+.qrow .q{font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.4}
+.qrow .q small{display:block;color:var(--sub);font-weight:500;font-size:12.5px;margin-top:2px}
+.alert{border-radius:16px;padding:14px 15px;font-size:14.5px;line-height:1.6;margin:14px 0 0}
+.alert.red{background:#FDECEC;color:#8B0A2A;font-weight:600}
+.alert.blue{background:#EAF1FF;color:#0B3E99}
+.alert.gray{background:#F4F5F7;color:#374151}
+.list{margin:0;padding:0;list-style:none}
+.list li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;font-size:15px;line-height:1.5}
+.list li i{flex:none;width:26px;height:26px;border-radius:50%;background:#EEF4FF;color:var(--blue);font-style:normal;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:-1px}
+/* drawing */
+.tools{display:flex;flex-wrap:wrap;gap:6px;padding:2px 0 10px}
+.tools::-webkit-scrollbar{display:none}
+.tools .chip{flex:none;font-size:13px;padding:8px 11px}
+.canvas-wrap{position:relative;background:#FBFBFC;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;justify-content:center}
+canvas.draw{display:block;max-width:100%;max-height:46dvh;touch-action:none}
+.drawbar{display:flex;justify-content:space-between;align-items:center;margin-top:9px;gap:8px}
+.drawbar .tip{font-size:12.5px;color:var(--sub);line-height:1.45}
+.mini{border:0;background:#EEF0F3;border-radius:10px;padding:8px 11px;font-size:13px;font-weight:700;font-family:inherit;color:var(--ink);cursor:pointer;flex:none}
+/* review */
+.rv{margin:0 0 6px}
+.rv h3{font-size:13px;color:var(--blue);margin:16px 0 6px}
+.rv .r{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #F3F4F6;font-size:14px;line-height:1.5}
+.rv .r b{flex:0 0 38%;font-weight:600;color:var(--sub)}
+.rv .r span{flex:1}
+.rv .r.red span{color:#B00020;font-weight:700}
+.thumbs{display:flex;gap:8px;overflow-x:auto;margin-top:8px}
+.thumbs img{height:150px;border-radius:12px;border:1px solid var(--line);background:#fff}
+.check{display:flex;gap:10px;align-items:flex-start;padding:13px 14px;border:1.5px solid var(--line);border-radius:14px;margin-bottom:9px;font-size:14.5px;line-height:1.5;cursor:pointer}
+.check input{width:20px;height:20px;margin:1px 0 0;flex:none;accent-color:var(--blue)}
+.check.on{border-color:var(--blue);background:#F5F8FF}
+.fine{font-size:12.5px;color:var(--sub);line-height:1.6;margin-top:6px}
+.err{color:#B00020;font-size:13.5px;font-weight:600;margin-top:10px;min-height:1px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+/* bottom bar */
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(244,245,247,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid #E9EBEE;padding:10px 16px calc(12px + env(safe-area-inset-bottom));z-index:9}
+.bar .in{max-width:520px;margin:0 auto}
+.msgrow{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;font-weight:700;margin-bottom:7px}
+.msgrow #msg{color:var(--ink)}
+.msgrow #pct{color:var(--sub);font-weight:600;font-variant-numeric:tabular-nums}
+.track{height:8px;background:#E3E6EA;border-radius:99px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:var(--blue);border-radius:99px;transition:width .45s cubic-bezier(.2,.8,.2,1)}
+.track.done i{background:linear-gradient(90deg,#F43131,#156DFF 55%,#FFC100)}
+.btns{display:flex;gap:8px;margin-top:11px}
+.btn{border:0;border-radius:15px;height:54px;font-size:17px;font-weight:700;font-family:inherit;cursor:pointer}
+.btn.prev{background:#E6E9ED;color:var(--ink);flex:0 0 96px}
+.btn.next{background:var(--blue);color:#fff;flex:1}
+.btn.next.skip{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.45}
+.btn.next.send{background:var(--ink)}
+.foot{color:#9CA3AF;font-size:11.5px;text-align:center;margin-top:16px;line-height:1.6}
+.done-ic{width:64px;height:64px;border-radius:50%;background:#EEF4FF;display:flex;align-items:center;justify-content:center;margin:6px 0 16px}
+</style>
+</head>
+<body>
+<div class="app">
+ <div class="top">
+  <div class="brand"><div class="dots"><i style="background:#F43131"></i><i style="background:#156DFF"></i><i style="background:#FFC100"></i></div><span class="label">PAIN CHECK</span></div>
+  <span class="count" id="count"></span>
+ </div>
+ <div id="main"></div>
+ <div class="foot">탭샵바 · hello@tsb.wine<br>이 체크는 의사의 진찰·진단을 대신하지 않아요.</div>
+</div>
+<div class="bar" id="bar"><div class="in">
+ <div class="msgrow"><span id="msg"></span><span id="pct"></span></div>
+ <div class="track" id="track"><i id="fill"></i></div>
+ <div class="btns"><button class="btn prev" id="prev">이전</button><button class="btn next" id="next">다음</button></div>
+</div></div>
+
+<script>
+'use strict';
+// 제출 받는 곳: 탭샵바 행사 페이지 Apps Script 웹 앱 (type=neck → hello@로 메일 1통, 시트에는 안 남김)
+const API='https://script.google.com/macros/s/AKfycbxOZFtdBChQh5_eq9HWDV_SpgMqKOGTnOe4uoVSLc8VNM8wJd93jWZ-sGM5VPAZpAta/exec';
+const KEY='tsb_neck_check_v1';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// ---------- 그림(일러스트) ----------
+const BODY='#DCE3EC',DARK='#8A94A6',BL='#156DFF';
+const svgWrap=(inner,vb='0 0 240 200')=>`<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="${BL}"/></marker></defs>${inner}</svg>`;
+function front(o={}){
+ const r=o.rot||0,dx=o.dx||0;
+ let s=`<path d="M38 200C38 150 66 128 120 128C174 128 202 150 202 200Z" fill="${BODY}"/><rect x="108" y="98" width="24" height="40" rx="10" fill="${BODY}"/>`;
+ if(o.armHead)s+=`<path d="M64 140C34 120 40 52 92 38" stroke="${BODY}" stroke-width="20" fill="none" stroke-linecap="round"/>`;
+ if(o.armUp)s+=`<path d="M62 142L50 22" stroke="${BODY}" stroke-width="20" fill="none" stroke-linecap="round"/>`;
+ if(o.bag)s+=`<path d="M64 142L44 188" stroke="${BODY}" stroke-width="20" stroke-linecap="round"/><path d="M30 204v-10a12 12 0 0 1 24 0v10" stroke="${DARK}" stroke-width="4" fill="none"/><rect x="20" y="200" width="44" height="21" rx="6" fill="${DARK}"/>`;
+ s+=`<g transform="rotate(${r} 120 110)"><circle cx="120" cy="70" r="33" fill="${BODY}"/><circle cx="${109+dx}" cy="67" r="3" fill="${DARK}"/><circle cx="${131+dx}" cy="67" r="3" fill="${DARK}"/>${o.cough?`<ellipse cx="${120+dx}" cy="86" rx="6" ry="7" fill="${DARK}"/>`:`<path d="M${113+dx} 84q7 4 14 0" stroke="${DARK}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`}</g>`;
+ if(o.armHead)s+=`<circle cx="100" cy="38" r="12" fill="${BODY}"/>`;
+ return s;
+}
+function side(o={}){
+ const r=o.rot||0;
+ let s=`<path d="M86 200C86 160 92 134 120 128C150 134 158 160 158 200Z" fill="${BODY}"/><rect x="108" y="96" width="24" height="44" rx="10" fill="${BODY}"/>`;
+ s+=`<g transform="rotate(${r} 120 112)"><circle cx="122" cy="70" r="33" fill="${BODY}"/><path d="M153 64l10 8l-10 4z" fill="${BODY}"/><circle cx="142" cy="62" r="3" fill="${DARK}"/></g>`;
+ if(o.phone)s+=`<path d="M128 150C150 160 166 150 176 136" stroke="${BODY}" stroke-width="16" fill="none" stroke-linecap="round"/><rect x="168" y="112" width="16" height="28" rx="4" fill="${DARK}" transform="rotate(-20 176 126)"/>`;
+ return s;
+}
+const ARROW=(d)=>`<path d="${d}" stroke="${BL}" stroke-width="4" fill="none" stroke-linecap="round" marker-end="url(#ah)"/>`;
+const TAG=(x,y,t)=>`<text x="${x}" y="${y}" font-size="13" font-weight="700" fill="${BL}" text-anchor="middle" font-family="Pretendard,-apple-system,sans-serif">${t}</text>`;
+const PICS={
+ tilt:svgWrap(front({rot:-20})+ARROW('M150 28C134 14 110 12 94 22')+TAG(196,30,'기울이고')+TAG(196,47,'살짝 위로')),
+ up:svgWrap(side({rot:-30})+ARROW('M178 86C186 62 180 40 164 28')+TAG(206,108,'천장 보기')),
+ turn:svgWrap(front({dx:-10})+ARROW('M160 22C140 8 100 8 80 22')+TAG(200,64,'돌리기')),
+ down:svgWrap(side({rot:28,phone:true})+ARROW('M172 46C184 62 186 80 180 96')+TAG(60,40,'1~2분')),
+ hand:svgWrap(front({armHead:true})+TAG(196,60,'손바닥을')+TAG(196,77,'머리 위에')),
+ cough:svgWrap(front({cough:true})+`<path d="M156 82l14-4M158 92l15 2M154 101l12 8" stroke="${BL}" stroke-width="3.5" stroke-linecap="round"/>`+TAG(196,60,'콜록')),
+ lie:svgWrap(`<rect x="14" y="150" width="212" height="12" rx="6" fill="#E9EDF2"/><ellipse cx="46" cy="138" rx="30" ry="12" fill="#C9D2DE"/><circle cx="52" cy="118" r="26" fill="${BODY}"/><rect x="74" y="112" width="140" height="38" rx="18" fill="${BODY}"/>`+TAG(150,96,'똑바로 눕기')),
+ bag:svgWrap(front({bag:true})+TAG(194,60,'가방 들기'),'0 0 240 222'),
+ over:svgWrap(front({armUp:true})+ARROW('M78 120C84 90 82 60 74 34')+TAG(190,60,'팔 위로 뻗기')),
+};
+
+// ---------- 통증 지도 그림 (통증 지도 - 목·등·팔 에서 가져온 실루엣) ----------
+function M(ops){let m=new DOMMatrix();for(const o of ops){if(o[0]==='t')m=m.translate(o[1],o[2]);else if(o[0]==='s')m=m.scale(o[1],o[2]);else if(o[0]==='r')m=m.rotate(o[1]);}return m;}
+const P=d=>new Path2D(d);
+const rr=(x,y,w,h,r)=>`M${x+r} ${y}H${x+w-r}A${r} ${r} 0 0 1 ${x+w} ${y+r}V${y+h-r}A${r} ${r} 0 0 1 ${x+w-r} ${y+h}H${x+r}A${r} ${r} 0 0 1 ${x} ${y+h-r}V${y+r}A${r} ${r} 0 0 1 ${x+r} ${y}Z`;
+const el=(cx,cy,rx,ry)=>`M${cx-rx} ${cy}A${rx} ${ry} 0 1 0 ${cx+rx} ${cy}A${rx} ${ry} 0 1 0 ${cx-rx} ${cy}Z`;
+const rect=(x,y,w,h)=>`M${x} ${y}h${w}v${h}h${-w}Z`;
+const ARM_D='M -30 0 C -30 -26 30 -26 30 0 C 32 60 28 140 22 190 C 27 230 24 300 17 352 L -17 352 C -24 300 -27 230 -23 190 C -28 140 -32 60 -30 0 Z';
+const FINGERS=[{n:'소지',x:-16.5,len:54},{n:'약지',x:-5.5,len:68},{n:'중지',x:5.5,len:74},{n:'검지',x:16.5,len:68}];
+const THUMB_M=M([['t',17,370],['r',-30]]);
+const ARM_PIECES=[{path:P(ARM_D)},{path:P(rr(-22,345,44,80,12))},...FINGERS.map(f=>({path:P(rr(f.x-5.2,415,10.4,f.len,5.2))})),{path:P(rr(-7,-2,14,54,7)),m:THUMB_M}];
+const torsoD=c=>`M ${c-24} 150 C ${c-30} 185 ${c-80} 190 ${c-118} 205 C ${c-142} 214 ${c-150} 240 ${c-146} 270 C ${c-140} 330 ${c-120} 400 ${c-112} 470 C ${c-108} 510 ${c-104} 545 ${c-100} 600 L ${c+100} 600 C ${c+104} 545 ${c+108} 510 ${c+112} 470 C ${c+120} 400 ${c+140} 330 ${c+146} 270 C ${c+150} 240 ${c+142} 214 ${c+118} 205 C ${c+80} 190 ${c+30} 185 ${c+24} 150 Z`;
+const cB=280,cF=800,ROT=-6;
+const torsoPieces=c=>[{path:P(rr(c-24,110,48,70,12))},{path:P(torsoD(c))}];
+const headPiece=c=>({path:P(el(c,72,44,54))});
+const ARMS={
+ backL:M([['t',cB-128,222],['s',-1,1],['r',ROT]]),backR:M([['t',cB+128,222],['r',ROT]]),
+ frontR:M([['t',cF-128,222],['s',-1,1],['r',ROT]]),frontL:M([['t',cF+128,222],['r',ROT]]),
+ palm:M([['t',1124,1385],['s',2.6,-2.6]]),dors:M([['t',1416,1385],['s',-2.6,-2.6]])};
+const CLIP_HAND=P(rect(-90,295,220,300));
+const VIEWS={
+ back:{x:50,y:4,w:460,h:724,name:'뒷모습'},
+ front:{x:570,y:4,w:460,h:724,name:'앞모습'},
+ handR:{x:1040,y:72,w:460,h:602,name:'오른손'},
+ handL:{x:1040,y:72,w:460,h:602,name:'왼손',mirror:true}};
+const TYPES=[
+ {k:'numb',n:'저림',c:'#7B61FF'},
+ {k:'zap',n:'찌릿·전기',c:'#E0A800'},
+ {k:'ache',n:'욱신·쑤심',c:'#F43131'},
+ {k:'tight',n:'뻐근·뭉침',c:'#156DFF'},
+ {k:'burn',n:'화끈',c:'#FF7A00'}];
+const TYPE=Object.fromEntries(TYPES.map(t=>[t.k,t]));
+const R=2;
+function viewM(v){let m=new DOMMatrix();if(v.mirror)m=m.translate(v.w,0).scale(-1,1);return m.translate(-v.x,-v.y);}
+function sil(x,base,pieces,m,lw,clip){
+ x.save();x.setTransform(base.multiply(m));if(clip)x.clip(CLIP_HAND);
+ x.lineJoin='round';x.strokeStyle='#C3C8D0';x.lineWidth=lw;
+ for(const p of pieces){x.save();if(p.m)x.transform(p.m.a,p.m.b,p.m.c,p.m.d,p.m.e,p.m.f);x.stroke(p.path);x.restore();}
+ x.fillStyle='#F2EEE9';
+ for(const p of pieces){x.save();if(p.m)x.transform(p.m.a,p.m.b,p.m.c,p.m.d,p.m.e,p.m.f);x.fill(p.path);x.restore();}
+ x.restore();
+}
+function baseImage(key){
+ const v=VIEWS[key],c=document.createElement('canvas');c.width=v.w*R;c.height=v.h*R;
+ const x=c.getContext('2d'),VM=viewM(v),B=new DOMMatrix([R,0,0,R,0,0]).multiply(VM);
+ x.fillStyle='#FBFBFC';x.fillRect(0,0,c.width,c.height);
+ const T=(s,px,py,o={})=>{const p=VM.transformPoint(new DOMPoint(px,py));x.save();x.setTransform(R,0,0,R,0,0);x.font=`${o.w||600} ${o.s||13}px Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif`;x.fillStyle=o.c||'#6B7280';x.textAlign=o.a||'center';x.textBaseline='middle';x.fillText(s,p.x+(o.dx||0),p.y);x.restore();};
+ if(key==='back'||key==='front'){
+  const c0=key==='back'?cB:cF;
+  sil(x,B,[headPiece(c0),...torsoPieces(c0)],new DOMMatrix(),4,false);
+  x.save();x.setTransform(B);x.strokeStyle='#D7DBE1';x.lineWidth=1.6;
+  if(key==='back'){
+   x.setLineDash([3,5]);x.beginPath();x.moveTo(c0,176);x.lineTo(c0,590);x.stroke();x.setLineDash([]);
+   for(const s of [1,-1]){x.beginPath();x.moveTo(c0+s*28,214);x.bezierCurveTo(c0+s*60,210,c0+s*95,214,c0+s*108,222);x.bezierCurveTo(c0+s*95,270,c0+s*78,315,c0+s*60,342);x.bezierCurveTo(c0+s*45,300,c0+s*32,255,c0+s*28,214);x.stroke();}
+  }else{
+   for(const s of [1,-1]){x.beginPath();x.moveTo(c0+s*18,184);x.bezierCurveTo(c0+s*60,176,c0+s*95,186,c0+s*122,200);x.stroke();}
+  }
+  x.restore();
+  for(const k of key==='back'?['backL','backR']:['frontR','frontL'])sil(x,B,ARM_PIECES,ARMS[k],4,false);
+  if(key==='back'){T('왼쪽',c0-200,140,{w:700,c:'#374151',s:15});T('오른쪽',c0+200,140,{w:700,c:'#374151',s:15});T('날개뼈',c0+70,300,{s:12,c:'#A0A6AF'});T('날개뼈',c0-70,300,{s:12,c:'#A0A6AF'});}
+  else{T('오른쪽',c0-200,140,{w:700,c:'#374151',s:15});T('왼쪽',c0+200,140,{w:700,c:'#374151',s:15});}
+ }else{
+  for(const k of ['palm','dors']){
+   sil(x,B,ARM_PIECES,ARMS[k],4/2.6,true);
+   for(const f of FINGERS){const p=ARMS[k].transformPoint(new DOMPoint(f.x,415+f.len));T(f.n,p.x,p.y-14,{s:13,c:'#4B5563'});}
+   const tp=ARMS[k].transformPoint(THUMB_M.transformPoint(new DOMPoint(0,52)));T('엄지',tp.x,tp.y-18,{s:13,c:'#4B5563'});
+   const bp=ARMS[k].transformPoint(new DOMPoint(0,300));T(k==='palm'?'손바닥':'손등',bp.x,650,{s:15,c:'#0E0E0E',w:800});
+  }
+ }
+ return c;
+}
+function drawStar(x,cx,cy,r){x.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rad=i%2?r*.45:r;x.lineTo(cx+rad*Math.cos(a),cy+rad*Math.sin(a));}x.closePath();}
+function paintMarks(x,d,scale){
+ x.save();x.setTransform(scale,0,0,scale,0,0);x.lineCap='round';x.lineJoin='round';
+ for(const s of d.s){x.globalAlpha=.55;x.strokeStyle=TYPE[s.t].c;x.lineWidth=s.w;x.beginPath();s.p.forEach((q,j)=>j?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1]));if(s.p.length===1)x.lineTo(s.p[0][0]+.1,s.p[0][1]);x.stroke();}
+ x.globalAlpha=1;
+ for(const st of d.st){drawStar(x,st[0],st[1],15);x.fillStyle='#F43131';x.strokeStyle='#fff';x.lineWidth=3;x.stroke();x.fill();}
+ x.restore();
+}
+const BASES={};
+function getBase(k){return BASES[k]||(BASES[k]=baseImage(k));}
+
+// ---------- 상태 ----------
+let S=load();
+function blank(){return {i:0,A:{},D:{}};}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.A)return s;}catch(e){}return blank();}
+let saveT;function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}},200);}
+const A=()=>S.A;
+
+// ---------- 질문 ----------
+const T4=['더 아파져요','편해져요','그대로예요','안 해 봤어요'];
+const STR=['같아요','조금 약해요','확실히 약해요','아파서 못 버텨요','안 해 봤어요'];
+const EFF=['잘 들었어요','조금','안 들었어요','더 나빠졌어요','안 해 봤어요'];
+const sideTxt=()=>({'오른쪽':'오른쪽','왼쪽':'왼쪽'}[A().side]||'아픈 쪽');
+const URGENT=['양쪽 손·팔이 다 저려요','젓가락질·단추 잠그기가 양손 다 어색해요','걸을 때 휘청이거나 다리에 힘이 빠져요','소변·대변 조절이 잘 안 돼요'];
+const SOON=['팔 힘이 점점 빠져요 (컵·가방을 놓쳐요)','열이 나거나 이유 없이 살이 빠졌어요','넘어지거나 사고가 난 뒤에 시작됐어요','밤새 쉬어도 전혀 줄지 않는 심한 통증이에요'];
+function steps(){
+ const a=A(),L=[];
+ L.push({id:'intro',type:'intro'});
+ L.push({id:'basic',type:'basic',sec:'기본',title:'먼저 간단히 알려 주세요'});
+ L.push({id:'side',type:'single',sec:'어디가',title:'어느 쪽이 아파요?',opts:['오른쪽','왼쪽','양쪽'],req:true});
+ L.push({id:'worse',type:'single',sec:'어디가',title:'어디가 제일 괴로워요?',opts:['목','날개뼈 · 등','어깨 · 팔','손 (저림)','다 비슷해요']});
+ L.push({id:'d_back',type:'draw',view:'back',sec:'그림 1',title:'뒷모습에 아픈 곳을 칠해 주세요',hint:'내 등을 <b>뒤에서 본 모습</b>이에요. 그림 오른쪽이 내 오른쪽이에요.'});
+ const hands=a.side==='양쪽'?['handR','handL']:a.side==='왼쪽'?['handL']:['handR'];
+ hands.forEach((h,n)=>L.push({id:'d_'+h,type:'draw',view:h,sec:'그림 '+(2+n),title:(h==='handR'?'오른손':'왼손')+'에 저린 곳을 칠해 주세요',hint:'손가락 하나하나 칠할수록 정확해요. <b>손바닥</b>과 <b>손등</b> 중 더 저린 쪽에 칠해 주세요.'}));
+ L.push({id:'d_front',type:'draw',view:'front',sec:'그림 '+(2+hands.length),title:'앞쪽도 아픈 곳이 있나요?',hint:'나를 <b>마주 본 모습</b>이라 그림 왼쪽이 내 오른쪽이에요. 앞쪽은 괜찮으면 그냥 <b>건너뛰기</b>를 누르세요.'});
+ L.push({id:'now',type:'scale',sec:'얼마나',title:'오늘 통증은 몇 점이에요?',hint:'0 = 안 아픔, 10 = 상상할 수 있는 최악'});
+ L.push({id:'worst',type:'scale',sec:'얼마나',title:'최근 1주에 제일 심할 때는요?',hint:'0 = 안 아픔, 10 = 상상할 수 있는 최악'});
+ L.push({id:'med',type:'scale',sec:'얼마나',title:'진통제 먹고 2~3시간 뒤에는요?',hint:'약을 안 먹었으면 아래 <b>약 안 먹어요</b>를 누르세요.',extra:'약 안 먹어요'});
+ L.push({id:'onset',type:'single',sec:'언제부터',title:'언제부터 아팠어요?',opts:['1주 안','1~4주','1~3개월','3~6개월','6개월 넘었어요']});
+ L.push({id:'cause',type:'multi',sec:'언제부터',title:'시작된 계기가 있었나요?',hint:'여러 개 골라도 돼요.',opts:['특별한 계기 없어요','자고 일어났더니','무거운 걸 들고 나서','운동하다가','컴퓨터 · 폰을 오래 하고 나서','넘어지거나 사고 뒤에']});
+ L.push({id:'when',type:'multi',sec:'언제',title:'언제 제일 아파요?',hint:'여러 개 골라도 돼요.',opts:['아침에 일어날 때','일할 때 · 앉아 있을 때','저녁','밤 · 잘 때 (자다가 깸)','하루 종일 비슷해요']});
+ const tests=[
+  ['t_tilt','tilt','고개를 '+sideTxt()+'으로 기울이고 살짝 젖혀 보세요'],
+  ['t_up','up','고개를 젖혀 천장을 봐 보세요'],
+  ['t_turn','turn','고개를 '+sideTxt()+'으로 돌려 보세요'],
+  ['t_down','down','고개를 숙이고 폰을 1~2분 봐 보세요'],
+  ['t_hand','hand',sideTxt()+' 손바닥을 머리 위에 올려 보세요'],
+  ['t_cough','cough','기침 · 재채기 · 힘줄 때는요?'],
+  ['t_lie','lie','똑바로 누워 있으면요?'],
+  ['t_bag','bag',sideTxt()+' 손으로 가방을 들면요?'],
+  ['t_over','over',sideTxt()+' 팔을 머리 위로 뻗으면요?']];
+ tests.forEach(([id,pic,t],n)=>L.push({id,type:'single',pic,sec:'해 보면 어때요 '+(n+1)+'/'+tests.length,title:t,hint:n===0?'천천히, <b>아프면 바로 멈추세요.</b> 무서우면 안 해도 돼요.':'',opts:T4}));
+ L.push({id:'relief',type:'multi',sec:'편해지는 것',title:'이럴 때 편해지나요?',hint:'여러 개 골라도 돼요.',opts:['뜨거운 샤워 · 찜질','아픈 쪽 손을 머리 위에 얹기','누가 머리를 위로 살짝 당겨 줄 때','누워서 쉬면','진통제를 먹으면','딱히 없어요']});
+ L.push({id:'str',type:'rows',sec:'힘 체크',title:sideTxt()+' 힘을 반대쪽과 비교해 주세요',hint:'가족이 손으로 눌러 주고 <b>양쪽을 번갈아</b> 비교하면 정확해요.',rows:[['s1','팔을 옆으로 들고 버티기','어깨'],['s2','팔꿈치 굽히기','알통'],['s3','팔꿈치 펴기 · 벽 밀기',''],['s4','손목 위로 젖히기',''],['s5','주먹 꽉 쥐기','악력'],['s6','손가락 벌리고 버티기','']],opts:STR});
+ L.push({id:'red',type:'multi',sec:'꼭 확인',title:'이런 게 하나라도 있나요?',hint:'없으면 <b>없어요</b>를 누르세요.',opts:['없어요',...URGENT,...SOON],none:'없어요'});
+ L.push({id:'tx',type:'rows',sec:'약 · 치료',title:'해 본 약 · 치료는 어땠어요?',hint:'안 해 본 건 그냥 두세요.',rows:[['m1','소염진통제','이부프로펜 · 덱시부프로펜 · 나프록센 등'],['m2','타이레놀','아세트아미노펜'],['m3','병원 처방약',''],['m4','신경차단 주사',''],['m5','물리치료','견인 · 전기 · 온열'],['m6','도수치료 · 카이로',''],['m7','침 · 한의원',''],['m8','집에서 하는 운동 · 스트레칭','']],opts:EFF,note:{key:'txNote',label:'약 이름 · 메모',ph:'약봉투에 적힌 이름 그대로 적어도 돼요'}});
+ L.push({id:'exam',type:'multi',sec:'검사',title:'받아 본 검사가 있나요?',opts:['X-ray','MRI','CT','근전도','아직 없어요'],none:'아직 없어요',note:{key:'dx',label:'병원에서 들은 진단 · 설명',ph:'예: C5-6 디스크, 거북목 등'}});
+ L.push({id:'health',type:'multi',sec:'건강',title:'해당하는 게 있나요?',hint:'약을 고를 때 꼭 필요한 정보예요.',opts:['위궤양 · 위출혈 있었음','신장 질환','고혈압 · 심장 질환','간 질환','당뇨','피 묽게 하는 약 먹는 중','임신 · 수유 중','없어요'],none:'없어요',note:{key:'drugs',label:'지금 먹는 약 · 약 알레르기',ph:'없으면 비워 두세요'}});
+ L.push({id:'desk',type:'single',sec:'생활',title:'하루에 책상 · 노트북 · 폰은 얼마나 해요?',opts:['2시간 이하','2~5시간','5~8시간','8시간 넘게']});
+ L.push({id:'sleep',type:'single',sec:'생활',title:'잠은 어때요?',opts:['아파서 자다가 자주 깨요','잠들기가 힘들어요','가끔 깨요','잘 자요']});
+ L.push({id:'memo',type:'text',sec:'하고 싶은 말',title:'더 알려 주고 싶은 거나 궁금한 게 있나요?',ph:'예: 운동해도 되는지, 병원 어디로 가야 하는지…'});
+ L.push({id:'contact',type:'contact',sec:'마지막',title:'답을 받을 연락처를 알려 주세요'});
+ L.push({id:'review',type:'review',sec:'확인',title:'이대로 보낼까요?'});
+ L.push({id:'done',type:'done'});
+ return L;
+}
+
+// ---------- 화면 ----------
+let dir=1,sending=false;
+function answered(st){
+ const a=A(),v=a[st.id];
+ switch(st.type){
+  case 'basic':return !!(a.name&&a.name.trim());
+  case 'single':case 'scale':return v!=null&&v!=='';
+  case 'multi':return Array.isArray(v)&&v.length>0;
+  case 'rows':return st.rows.some(r=>a[r[0]]);
+  case 'draw':{const d=S.D[st.view];return !!(d&&(d.s.length||d.st.length));}
+  case 'text':return !!(v&&v.trim());
+  case 'contact':return contactOk();
+  default:return true;
+ }
+}
+function contactOk(){const a=A();const ph=(a.phone||'').replace(/\D/g,'');const em=(a.email||'').trim();return (ph.length>=9||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em))&&a.c1&&a.c2;}
+function msgFor(p,st){
+ if(st.type==='intro')return '시작해 볼까요';
+ if(st.type==='done')return '다 됐어요';
+ if(st.type==='review')return '마지막이에요!';
+ if(st.type==='contact')return '거의 끝났어요';
+ if(p<.18)return '좋아요, 천천히 해요';
+ if(p<.42)return '잘하고 있어요';
+ if(p<.58)return '절반 왔어요';
+ if(p<.78)return '조금만 더요';
+ return '거의 다 왔어요';
+}
+function render(){
+ const L=steps();if(S.i>=L.length)S.i=L.length-1;if(S.i<0)S.i=0;
+ const st=L[S.i],main=$('#main'),a=A();
+ const total=L.length-2,p=st.type==='done'?1:Math.max(0,Math.min(1,(S.i)/(total)));
+ $('#fill').style.width=(st.type==='intro'?3:Math.round(p*100))+'%';
+ $('#track').classList.toggle('done',st.type==='done');
+ $('#pct').textContent=st.type==='intro'?'약 5분':Math.round(p*100)+'%';
+ $('#msg').textContent=msgFor(p,st);
+ $('#count').textContent=(st.type==='intro'||st.type==='done')?'':`${S.i} / ${total}`;
+ let h='';
+ const head=`<div class="sec">${esc(st.sec||'')}</div><h2>${esc(st.title||'')}</h2>${st.hint?`<p class="hint">${st.hint}</p>`:''}`;
+ if(st.type==='intro'){
+  h=`<h1>목 · 팔 통증 체크</h1><p class="hint">목에서 시작해 어깨 · 날개뼈 · 팔 · 손까지 아프거나 저린 분을 위한 체크예요. 그림에 아픈 곳을 칠하고, 몇 가지만 누르면 돼요.</p>
+  <ul class="list"><li><i>1</i><span><b>그림</b>에 아픈 곳 칠하기</span></li><li><i>2</i><span>고개 · 팔을 움직여 보고 <b>어떤지</b> 누르기</span></li><li><i>3</i><span>약 · 치료 · 생활 몇 가지</span></li><li><i>4</i><span><b>제출</b>하면 정리해서 연락드려요</span></li></ul>
+  <div class="alert gray">중간에 나가도 이 폰에 저장돼서 이어서 할 수 있어요.</div>
+  <div class="alert red">양손이 다 저리거나, 걸을 때 휘청이거나, 대소변 조절이 안 되면 이 체크보다 <b>병원(응급실)이 먼저</b>예요.</div>`;
+ }else if(st.type==='basic'){
+  h=head+`<div class="field"><label>이름 <small>(별명도 괜찮아요)</small></label><input type="text" id="f_name" autocomplete="name" maxlength="30" value="${esc(a.name||'')}"></div>
+  <div class="field"><label>나이</label><input type="number" inputmode="numeric" id="f_age" min="1" max="120" value="${esc(a.age||'')}" placeholder="예: 45"></div>
+  <div class="field"><label>성별</label><div class="opts row" id="f_sex">${['남성','여성','말하지 않을래요'].map(o=>`<button class="chip${a.sex===o?' on':''}" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div></div>
+  <div class="field"><label>하는 일 <small>(선택)</small></label><input type="text" id="f_job" maxlength="40" value="${esc(a.job||'')}" placeholder="예: 사무직, 요리사, 운전"></div>`;
+ }else if(st.type==='single'||st.type==='multi'){
+  const v=a[st.id],multi=st.type==='multi',sel=o=>multi?(Array.isArray(v)&&v.includes(o)):v===o;
+  h=head+(st.pic?`<div class="pic">${PICS[st.pic]}</div>`:'')+(st.id==='red'?`<div id="redAlert" style="margin:-4px 0 14px"></div>`:'')+`<div class="opts">${st.opts.map(o=>`<button class="opt${multi?' multi':''}${sel(o)?' on':''}" data-v="${esc(o)}"><span class="ck"></span><span>${esc(o)}</span></button>`).join('')}</div>`;
+  if(st.note)h+=`<div class="field" style="margin-top:16px"><label>${esc(st.note.label)} <small>(선택)</small></label><input type="text" id="f_note" maxlength="200" value="${esc(a[st.note.key]||'')}" placeholder="${esc(st.note.ph)}"></div>`;
+ }else if(st.type==='scale'){
+  const v=a[st.id];
+  h=head+`<div class="nums">${[...Array(11).keys()].map(n=>`<button class="num${v===n?' on':''}" data-v="${n}" style="${v===n?'background:'+scaleColor(n):''}">${n}</button>`).join('')}</div><div class="scale-ends"><span>0 안 아픔</span><span>10 최악</span></div>`;
+  if(st.extra)h+=`<div class="opts" style="margin-top:14px"><button class="opt${v===st.extra?' on':''}" data-v="${esc(st.extra)}"><span class="ck"></span><span>${esc(st.extra)}</span></button></div>`;
+ }else if(st.type==='rows'){
+  h=head+st.rows.map(r=>`<div class="qrow" data-k="${r[0]}"><div class="q">${esc(r[1])}${r[2]?`<small>${esc(r[2])}</small>`:''}</div><div class="opts row">${st.opts.map(o=>`<button class="chip${a[r[0]]===o?' on':''}" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div></div>`).join('');
+  if(st.note)h+=`<div class="field" style="margin-top:16px"><label>${esc(st.note.label)} <small>(선택)</small></label><input type="text" id="f_note" maxlength="200" value="${esc(a[st.note.key]||'')}" placeholder="${esc(st.note.ph)}"></div>`;
+ }else if(st.type==='draw'){
+  h=head+`<div class="tools" id="tools">${TYPES.map(t=>`<button class="chip" data-t="${t.k}"><span class="sw" style="background:${t.c}"></span>${t.n}</button>`).join('')}<button class="chip" data-t="star"><span style="color:#F43131">★</span>제일 아픈 곳</button></div>
+  <div class="canvas-wrap"><canvas class="draw" id="cv"></canvas></div>
+  <div class="drawbar"><span class="tip" id="tip"></span><span style="display:flex;gap:6px"><button class="mini" id="undo">되돌리기</button><button class="mini" id="clr">지우기</button></span></div>`;
+ }else if(st.type==='text'){
+  h=head+`<textarea id="f_text" maxlength="1500" placeholder="${esc(st.ph||'')}">${esc(a[st.id]||'')}</textarea>`;
+ }else if(st.type==='contact'){
+  h=head+`<p class="hint">휴대폰이나 이메일 중 <b>하나만</b> 있어도 돼요.</p>
+  <div class="field"><label>휴대폰</label><input type="tel" id="f_phone" inputmode="tel" autocomplete="tel" maxlength="20" value="${esc(a.phone||'')}" placeholder="010-0000-0000"></div>
+  <div class="field"><label>이메일</label><input type="email" id="f_email" autocomplete="email" maxlength="80" value="${esc(a.email||'')}" placeholder="name@example.com"></div>
+  <label class="check${a.c1?' on':''}"><input type="checkbox" id="f_c1"${a.c1?' checked':''}><span><b>[필수]</b> 이름 · 나이 · 연락처를 답장 드리는 데만 쓰는 것에 동의해요.</span></label>
+  <label class="check${a.c2?' on':''}"><input type="checkbox" id="f_c2"${a.c2?' checked':''}><span><b>[필수]</b> 통증 · 약 · 질환 같은 <b>건강 정보</b>(민감정보)를 같은 목적으로 쓰는 것에 동의해요.</span></label>
+  <p class="fine">받는 곳: 탭샵바 hello@tsb.wine · 쓰는 곳: 정리해서 답장 드리기 · 보관: 답장 드린 뒤 30일 안에 지워요. 동의하지 않으면 보낼 수 없어요.</p>
+  <div class="hp"><input type="text" id="f_hp" tabindex="-1" autocomplete="off"></div>`;
+ }else if(st.type==='review'){
+  const rows=summaryRows(),imgs=drawnViews();
+  let cur='';
+  h=head+`<p class="hint">고칠 게 있으면 <b>이전</b>으로 돌아가면 돼요.</p>`;
+  if(imgs.length)h+=`<div class="thumbs">${imgs.map(k=>`<img alt="${esc(VIEWS[k].name)}" src="${exportView(k,.7)}">`).join('')}</div>`;
+  h+=`<div class="rv">`;
+  for(const r of rows){if(r[0]!==cur){cur=r[0];h+=`<h3>${esc(cur)}</h3>`;}h+=`<div class="r${r[3]?' red':''}"><b>${esc(r[1])}</b><span>${esc(r[2])}</span></div>`;}
+  h+=`</div><div class="err" id="err"></div>`;
+ }else if(st.type==='done'){
+  const red=(a.red||[]),urg=red.some(x=>URGENT.includes(x)),soon=red.some(x=>SOON.includes(x));
+  h=`<div class="done-ic"><svg width="30" height="30" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#156DFF" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <h1>잘 받았어요</h1><p class="hint">${esc(a.name||'')}님이 보내 주신 그림과 답을 꼼꼼히 보고 남겨 주신 연락처로 연락드릴게요.</p>
+  ${urg?`<div class="alert red">고르신 것 중에 <b>오늘 바로 병원(응급실)</b>에 가야 하는 신호가 있어요. 답장을 기다리지 마시고 먼저 진료를 받아 주세요.</div>`:soon?`<div class="alert red">고르신 것 중에 <b>며칠 안에 진료</b>를 받아 보는 게 좋은 신호가 있어요.</div>`:''}
+  <div class="alert gray">기다리는 동안: 고개를 아픈 쪽으로 젖히는 동작은 피하고, 30분마다 일어나 어깨를 풀어 주세요.</div>
+  <div style="margin-top:16px"><button class="mini" id="again">처음부터 새로 쓰기</button></div>`;
+ }
+ main.innerHTML=`<div class="card${dir<0?' back':''}">${h}</div>`;
+ bind(st);
+ updateButtons(st);
+ save();
+}
+function scaleColor(n){return n<=3?'#12B886':n<=6?'#E0A800':'#F43131';}
+function updateButtons(st){
+ const nb=$('#next'),pb=$('#prev'),bar=$('#bar');
+ bar.style.display='';
+ pb.style.display=st.type==='intro'?'none':'';
+ nb.className='btn next';nb.disabled=false;
+ if(st.type==='intro'){nb.textContent='시작할게요';}
+ else if(st.type==='review'){nb.textContent=sending?'보내는 중…':'제출하기';nb.classList.add('send');nb.disabled=sending;}
+ else if(st.type==='done'){bar.style.display='none';}
+ else if(st.type==='basic'||st.req){nb.textContent='다음';nb.disabled=!answered(st);}
+ else if(st.type==='contact'){nb.textContent='다음';nb.disabled=!contactOk();}
+ else if(answered(st)){nb.textContent='다음';}
+ else{nb.textContent='건너뛰기';nb.classList.add('skip');}
+}
+function go(d){dir=d;S.i+=d;window.scrollTo({top:0});render();}
+function bind(st){
+ const a=A(),main=$('#main');
+ const refresh=()=>updateButtons(st);
+ if(st.type==='basic'){
+  $('#f_name').oninput=e=>{a.name=e.target.value;refresh();save();};
+  $('#f_age').oninput=e=>{a.age=e.target.value;save();};
+  $('#f_job').oninput=e=>{a.job=e.target.value;save();};
+  main.querySelectorAll('#f_sex .chip').forEach(b=>b.onclick=()=>{a.sex=b.dataset.v;main.querySelectorAll('#f_sex .chip').forEach(x=>x.classList.toggle('on',x===b));save();});
+ }
+ if(st.type==='single'||(st.type==='scale')){
+  main.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{
+   const v=st.type==='scale'&&/^\d+$/.test(b.dataset.v)?+b.dataset.v:b.dataset.v;
+   a[st.id]=v;
+   main.querySelectorAll('[data-v]').forEach(x=>{const on=x===b;x.classList.toggle('on',on);if(x.classList.contains('num'))x.style.background=on?scaleColor(+x.dataset.v):'';});
+   save();refresh();
+   setTimeout(()=>{if(steps()[S.i]&&steps()[S.i].id===st.id)go(1);},280);
+  });
+ }
+ if(st.type==='multi'){
+  const paintRed=()=>{const el=$('#redAlert');if(!el)return;const r=a.red||[];el.innerHTML=r.some(x=>URGENT.includes(x))?`<div class="alert red" style="margin:0">이건 <b>오늘 바로 병원(응급실)</b>에 가야 하는 신호예요. 체크는 마저 하셔도 되지만 진료가 먼저예요.</div>`:r.some(x=>SOON.includes(x))?`<div class="alert red" style="margin:0"><b>며칠 안에 진료</b>를 받아 보는 게 좋아요.</div>`:'';};
+  main.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+   let v=Array.isArray(a[st.id])?a[st.id].slice():[];const o=b.dataset.v;
+   if(v.includes(o))v=v.filter(x=>x!==o);else{v.push(o);if(st.none)v=o===st.none?[o]:v.filter(x=>x!==st.none);}
+   a[st.id]=v;main.querySelectorAll('.opt').forEach(x=>x.classList.toggle('on',v.includes(x.dataset.v)));
+   paintRed();save();refresh();
+  });
+  paintRed();
+ }
+ if(st.type==='rows'){
+  main.querySelectorAll('.qrow').forEach(row=>row.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{
+   const k=row.dataset.k;a[k]=a[k]===b.dataset.v?'':b.dataset.v;
+   row.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',a[k]===x.dataset.v));save();refresh();
+  }));
+ }
+ if(st.note){const n=$('#f_note');if(n)n.oninput=e=>{a[st.note.key]=e.target.value;save();};}
+ if(st.type==='text')$('#f_text').oninput=e=>{a[st.id]=e.target.value;save();refresh();};
+ if(st.type==='contact'){
+  $('#f_phone').oninput=e=>{a.phone=e.target.value;save();refresh();};
+  $('#f_email').oninput=e=>{a.email=e.target.value;save();refresh();};
+  for(const k of ['c1','c2'])$('#f_'+k).onchange=e=>{a[k]=e.target.checked;e.target.closest('.check').classList.toggle('on',a[k]);save();refresh();};
+ }
+ if(st.type==='draw')initDraw(st);
+ if(st.type==='done')$('#again').onclick=()=>{if(!confirm('처음부터 새로 쓸까요?'))return;S=blank();save();render();};
+}
+
+// ---------- 그리기 ----------
+let tool='numb';
+function initDraw(st){
+ const k=st.view,v=VIEWS[k],cv=$('#cv'),x=cv.getContext('2d');
+ cv.width=v.w*R;cv.height=v.h*R;
+ const d=S.D[k]||(S.D[k]={s:[],st:[]});
+ if(!TYPE[tool]&&tool!=='star')tool='numb';
+ if(k.startsWith('hand')&&tool==='ache'&&!d.s.length)tool='numb';
+ const tips={star:'제일 아픈 한 곳을 톡 눌러 주세요',numb:'손가락으로 문질러 칠해요',zap:'찌릿한 길을 따라 그어 주세요',ache:'욱신거리는 곳을 칠해요',tight:'뭉친 곳을 칠해요',burn:'화끈거리는 곳을 칠해요'};
+ const paintTools=()=>{document.querySelectorAll('#tools .chip').forEach(b=>b.classList.toggle('on',b.dataset.t===tool));$('#tip').textContent=tips[tool];};
+ document.querySelectorAll('#tools .chip').forEach(b=>b.onclick=()=>{tool=b.dataset.t;paintTools();});
+ paintTools();
+ const draw=()=>{x.setTransform(1,0,0,1,0,0);x.clearRect(0,0,cv.width,cv.height);x.drawImage(getBase(k),0,0);paintMarks(x,d,R);};
+ draw();
+ const W=k.startsWith('hand')?16:20;
+ const pt=e=>{const r=cv.getBoundingClientRect();return [Math.round((e.clientX-r.left)*v.w/r.width),Math.round((e.clientY-r.top)*v.h/r.height)];};
+ let cur=null,undo=[];
+ cv.onpointerdown=e=>{e.preventDefault();cv.setPointerCapture(e.pointerId);const p=pt(e);undo.push(JSON.stringify(d));
+  if(tool==='star'){d.st.push(p);}else{cur={t:tool,w:W,p:[p]};d.s.push(cur);}draw();};
+ cv.onpointermove=e=>{if(!cur)return;const p=pt(e),l=cur.p[cur.p.length-1];if(Math.hypot(p[0]-l[0],p[1]-l[1])>2){cur.p.push(p);draw();}};
+ const end=()=>{cur=null;save();updateButtons(st);};
+ cv.onpointerup=end;cv.onpointercancel=end;
+ $('#undo').onclick=()=>{const u=undo.pop();if(!u)return;const o=JSON.parse(u);d.s=o.s;d.st=o.st;draw();save();updateButtons(st);};
+ $('#clr').onclick=()=>{if(!d.s.length&&!d.st.length)return;if(!confirm('이 그림을 다 지울까요?'))return;undo.push(JSON.stringify(d));d.s=[];d.st=[];draw();save();updateButtons(st);};
+}
+function drawnViews(){return Object.keys(VIEWS).filter(k=>{const d=S.D[k];return d&&(d.s.length||d.st.length)&&steps().some(s=>s.view===k);});}
+function exportView(k,q){
+ const v=VIEWS[k],d=S.D[k],band=46,c=document.createElement('canvas');c.width=v.w;c.height=v.h+band;
+ const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);
+ x.drawImage(getBase(k),0,0,v.w,v.h);paintMarks(x,d,1);
+ x.font='700 13px Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif';x.textBaseline='middle';
+ let lx=12;const ly=v.h+band/2;
+ x.fillStyle='#0E0E0E';x.fillText(v.name,lx,ly);lx+=x.measureText(v.name).width+14;
+ x.font='600 12px Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif';
+ const used=new Set(d.s.map(s=>s.t));
+ for(const t of TYPES.filter(t=>used.has(t.k))){x.fillStyle=t.c;x.beginPath();x.arc(lx+5,ly,5,0,7);x.fill();x.fillStyle='#374151';x.fillText(t.n,lx+13,ly);lx+=x.measureText(t.n).width+26;}
+ if(d.st.length){x.fillStyle='#F43131';x.fillText('★ 제일 아픈 곳',lx,ly);}
+ return c.toDataURL('image/jpeg',q||.85);
+}
+
+// ---------- 요약 (메일 · 확인 화면 공용) ----------
+function summaryRows(){
+ const a=A(),out=[],add=(s,q,v,red)=>{if(v!=null&&v!==''&&!(Array.isArray(v)&&!v.length))out.push([s,q,Array.isArray(v)?v.join(', '):String(v),red?1:0]);};
+ add('기본','이름',a.name);add('기본','나이',a.age);add('기본','성별',a.sex);add('기본','하는 일',a.job);
+ for(const st of steps()){
+  if(['intro','basic','contact','review','done'].includes(st.type))continue;
+  const sec=String(st.sec||'').replace(/\s*\d+\/\d+$/,'').replace(/^그림 \d+$/,'그림');
+  if(st.type==='draw'){const d=S.D[st.view];if(d&&(d.s.length||d.st.length)){const used=[...new Set(d.s.map(s=>TYPE[s.t].n))];add('그림',VIEWS[st.view].name,(used.join(', ')||'')+(d.st.length?(used.length?' / ':'')+'★ '+d.st.length+'곳':''));}continue;}
+  if(st.type==='rows'){for(const r of st.rows)add(sec,r[1],a[r[0]],st.id==='str'&&/확실히/.test(a[r[0]]||''));if(st.note)add(sec,st.note.label,a[st.note.key]);continue;}
+  const v=a[st.id];
+  if(st.id==='red'){add(sec,'위험 신호',v,Array.isArray(v)&&v.some(x=>x!=='없어요'));continue;}
+  add(sec,st.title,st.type==='scale'&&typeof v==='number'?v+'점':v);
+  if(st.note)add(sec,st.note.label,a[st.note.key]);
+ }
+ add('연락처','휴대폰',a.phone);add('연락처','이메일',a.email);
+ return out;
+}
+async function submit(){
+ const a=A(),err=$('#err');
+ if(sending)return;
+ if(!contactOk()){err.textContent='연락처와 동의를 확인해 주세요.';return;}
+ sending=true;updateButtons(steps()[S.i]);err.textContent='';
+ const red=(a.red||[]).filter(x=>x!=='없어요');
+ const body=new URLSearchParams();
+ body.set('type','neck');body.set('hp',($('#f_hp')||{}).value||a.hp||'');
+ body.set('data',JSON.stringify({name:a.name,age:a.age,sex:a.sex,side:a.side,phone:a.phone,email:a.email,consent:!!(a.c1&&a.c2),urgent:red.some(x=>URGENT.includes(x)),red:red.length>0,rows:summaryRows(),ua:navigator.userAgent.slice(0,120)}));
+ drawnViews().forEach((k,n)=>{body.set('img'+(n+1),exportView(k,.82).split(',')[1]);body.set('imgname'+(n+1),VIEWS[k].name);});
+ try{
+  const r=await fetch(API,{method:'POST',body});
+  const j=await r.json();
+  if(!j.ok)throw new Error(j.error||'fail');
+  sending=false;S.sent=new Date().toISOString();go(1);
+ }catch(e){
+  sending=false;updateButtons(steps()[S.i]);
+  err.innerHTML='보내지 못했어요. 인터넷 연결을 확인하고 <b>제출하기</b>를 한 번 더 눌러 주세요.';
+ }
+}
+$('#next').onclick=()=>{const st=steps()[S.i];if(st.type==='review')return submit();if($('#next').disabled)return;go(1);};
+$('#prev').onclick=()=>go(-1);
+if(S.sent&&steps()[S.i].type!=='done'){S=blank();}
+render();
+// 자체 점검: 요약 줄은 [섹션, 질문, 답, 강조] 4칸
+console.assert(summaryRows().every(r=>r.length===4),'summaryRows shape');
+</script>
+</body>
+</html>
